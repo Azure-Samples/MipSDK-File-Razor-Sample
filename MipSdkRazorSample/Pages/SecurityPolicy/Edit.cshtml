@@ -1,0 +1,40 @@
+﻿@page
+@model MipSdkRazorSample.Pages.SecurityPolicy.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>DataPolicy</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DataPolicy.ID" />
+            <div class="form-group">
+                <label asp-for="DataPolicy.PolicyName" class="control-label"></label>
+                <input asp-for="DataPolicy.PolicyName" class="form-control" />
+                <span asp-validation-for="DataPolicy.PolicyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataPolicy.MinLabelIdForAction" class="control-label"></label>
+                <input asp-for="DataPolicy.MinLabelIdForAction" class="form-control" />
+                <span asp-validation-for="DataPolicy.MinLabelIdForAction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

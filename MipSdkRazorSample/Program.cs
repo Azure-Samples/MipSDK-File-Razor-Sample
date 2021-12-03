@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using MipSdkRazorSample.Data;
+using MipSdkRazorSample.MipApi;
+using MipSdkRazorSample.Models;
+using System.Net.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +35,15 @@ builder.Services.AddDbContext<MipSdkRazorSampleContext>(options =>
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
+builder.Services.AddSingleton<IMipApi, MipApi>();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

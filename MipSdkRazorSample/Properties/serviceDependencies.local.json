@@ -1,16 +1,17 @@
 {
   "dependencies": {
-    "identityapp.aad1": {
-      "secretStore": "LocalSecretsFile",
-      "type": "identityapp.aad.callsgraph",
-      "connectionId": "AzureAD:ClientSecret"
-    },
     "secrets1": {
       "type": "secrets.user"
     },
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:MipSdkRazorSampleContext"
+    },
+    "identityapp.aad1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": null,
+      "type": "identityapp.aad.callsgraph",
+      "connectionId": "AzureAD:ClientSecret"
     }
   }
 }
