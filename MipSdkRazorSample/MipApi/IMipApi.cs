@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR.Protocol;
-using Microsoft.Graph;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.Exceptions;
 using Microsoft.InformationProtection.File;
@@ -8,9 +7,12 @@ using Microsoft.InformationProtection.File;
 namespace MipSdkRazorSample.MipApi
 {
     public interface IMipApi
-    {
-        void InitializeMip(string clientId, string appName, string appVersion);
+    {        
+        ContentLabel GetFileLabel(string userId, Stream inputStream);
 
-        ContentLabel GetFileLabel(Stream inputStream);
+        public bool IsLabeledOrProtected(Stream inputStream);
+
+        public int GetLabelSensitivityValue(string labelGuid);
+        
     }
 }

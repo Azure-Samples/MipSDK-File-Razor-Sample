@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,8 @@ using MipSdkRazorSample.Data;
 using MipSdkRazorSample.MipApi;
 using MipSdkRazorSample.Models;
 using System.Net.Security;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,12 +33,13 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options =>
-
     options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
 builder.Services.AddSingleton<IMipApi, MipApi>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 

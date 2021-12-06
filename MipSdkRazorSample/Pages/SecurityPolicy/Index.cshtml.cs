@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -18,17 +20,14 @@ namespace MipSdkRazorSample.Pages.SecurityPolicy
         private readonly MipSdkRazorSample.Data.MipSdkRazorSampleContext _context;
 
         private readonly IMipApi _mipApi;
+        private readonly string _userId;
+        
 
         public IndexModel(MipSdkRazorSample.Data.MipSdkRazorSampleContext context)
-        {
+        {                                
             _context = context;
             
-            _mipApi = context.GetService<IMipApi>();
-
-            if (_mipApi != null)
-            {
-                ContentLabel label = _mipApi.GetFileLabel(new MemoryStream());
-            }
+            // add label fetch                     
         }
 
         public IList<DataPolicy> DataPolicy { get;set; }
