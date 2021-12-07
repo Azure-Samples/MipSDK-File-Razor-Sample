@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.InformationProtection;
+using MipSdkRazorSample.Models;
 using MipSdkRazorSample.Services;
 using System.Security.Claims;
 
@@ -24,10 +25,14 @@ namespace MipSdkRazorSample.Pages.DataImport
             _userId = _context.GetService<IHttpContextAccessor>().HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Subject.Name;
         }
 
-        
+        public DataPolicy DataPolicy { get; set; }
+        public IList<MipLabel> MipLabels { get; set; }  
+
         public async Task OnPostAsync()
         {
             MemoryStream uploadStream = new();
+
+            DataPolicy = _context.DataPolicy.First(d => d.PolicyName == "Download Policy");
 
             if (Upload != null)
             {
@@ -43,7 +48,14 @@ namespace MipSdkRazorSample.Pages.DataImport
                     if (_userId != null)
                     {
                         ContentLabel label = _mipApi.GetFileLabel(_userId, uploadStream);
-                        
+                        if(_mipApi.GetLabelSensitivityValue(label.Label.Id) <= _mipApi.GetLabelSensitivityValue(DataPolicy.MinLabelIdForAction))
+                        {
+                            // Do Processing
+                        }
+                        else
+                        {
+                            // Write Error
+                        }
                     }
                     else
                     {
