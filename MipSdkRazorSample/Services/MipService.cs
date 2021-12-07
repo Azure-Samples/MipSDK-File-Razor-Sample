@@ -68,10 +68,23 @@ namespace MipSdkRazorSample.Services
         public ContentLabel GetFileLabel(string userId, Stream inputStream)
         {
             IFileEngine engine = GetDelegatedEngine(userId);
-                        
-            IFileHandler handler = engine.CreateFileHandlerAsync(inputStream, "fileUpload.xlsx", true).Result;
+            IFileHandler handler;
+
+            try
+            {
+                handler = engine.CreateFileHandlerAsync(inputStream, "fileUpload.xlsx", true).Result;
+            }
+
+            catch (Microsoft.InformationProtection.Exceptions.AccessDeniedException ex) 
+            {
+                throw ex;
+            }
             
-            // TODO: Implement auth
+            catch (AggregateException ex)
+            {
+                throw ex.GetBaseException();
+            }
+                                    
             return handler.Label;                        
         }
 
@@ -118,7 +131,7 @@ namespace MipSdkRazorSample.Services
         private IFileEngine GetDelegatedEngine(string userId)
         {
             IFileEngine engine;
-
+            
             if (_fileEngines.Count() == 0 || _fileEngines.Where(e => e.Settings.EngineId == userId) == null)
             {
                 // Fix the engineId

@@ -11,10 +11,14 @@ using MipSdkRazorSample.Data;
 using MipSdkRazorSample.Services;
 using MipSdkRazorSample.Models;
 using System.Net.Security;
+using Azure.Identity;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
 // Add services to the container.

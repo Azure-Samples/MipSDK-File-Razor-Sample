@@ -23,6 +23,8 @@ namespace MipSdkRazorSample.Services
         public string AcquireToken(Identity identity, string authority, string resource, string claims)
         {
             IConfidentialClientApplication app;
+            AuthenticationResult authResult;
+
 
             if (authority.ToLower().Contains("common"))
             {
@@ -38,11 +40,12 @@ namespace MipSdkRazorSample.Services
 
             string[] scopes = new string[] { resource[resource.Length - 1].Equals('/') ? $"{resource}.default" : $"{resource}/.default" };
 
-            AuthenticationResult authResult = app.AcquireTokenForClient(scopes)
+            authResult = app.AcquireTokenForClient(scopes)
                 .WithAuthority(authority)
                 .ExecuteAsync()
                 .GetAwaiter()
                 .GetResult();
+
             // Return the token. The token is sent to the resource.
             return authResult.AccessToken;
         }

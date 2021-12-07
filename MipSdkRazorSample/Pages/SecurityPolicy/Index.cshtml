@@ -31,7 +31,7 @@
             </td>
             <td>
                 <!-- Update to display the label name instead of ID-->
-                @Html.DisplayFor(modelItem => Model.MipLabel.Where(m => m.Id == item.MinLabelIdForAction).First().Name)
+                @Html.DisplayFor(modelItem => Model.MipLabel.Where(m => m.Id == item.MinLabelIdForAction).FirstOrDefault().Name)
             </td>                        
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

@@ -1,15 +1,16 @@
 {
   "dependencies": {
+    "identityapp.aad1": {
+      "type": "identityapp",
+      "connectionId": "AzureAD:ClientSecret"
+    },
     "secrets1": {
-      "type": "secrets"
+      "type": "secrets",
+      "connectionId": "VaultUri"
     },
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:MipSdkRazorSampleContext"
-    },
-    "identityapp.aad1": {
-      "type": "identityapp.aad",
-      "connectionId": "AzureAD:ClientSecret"
     }
   }
 }

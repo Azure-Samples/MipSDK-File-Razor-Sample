@@ -12,9 +12,9 @@ namespace MipSdkRazorSample.Models
                 if (context == null || context.DataPolicy == null)
                 {
                     throw new ArgumentNullException("Null MipSdkRazorSampleContext");
-                }
+                }                                                                    
 
-                if(!context.DataPolicy.Any())
+                if (!context.DataPolicy.Any())
                 {
                     context.DataPolicy.AddRange(
                     new DataPolicy
