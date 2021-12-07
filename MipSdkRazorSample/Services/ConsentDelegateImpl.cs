@@ -1,7 +1,7 @@
 ﻿using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.Exceptions;
 
-namespace MipSdkRazorSample.MipApi
+namespace MipSdkRazorSample.Services
 {
     public class ConsentDelegateImpl : IConsentDelegate
     {

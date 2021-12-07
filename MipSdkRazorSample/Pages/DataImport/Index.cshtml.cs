@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.InformationProtection;
-using MipSdkRazorSample.MipApi;
+using MipSdkRazorSample.Services;
 using System.Security.Claims;
 
 namespace MipSdkRazorSample.Pages.DataImport
@@ -10,7 +10,7 @@ namespace MipSdkRazorSample.Pages.DataImport
     public class IndexModel : PageModel
     {
         private readonly MipSdkRazorSample.Data.MipSdkRazorSampleContext _context;
-        private readonly IMipApi _mipApi;
+        private readonly IMipService _mipApi;
         private readonly string? _userId;
 
         [BindProperty]
@@ -20,7 +20,7 @@ namespace MipSdkRazorSample.Pages.DataImport
         {
             _context = context;
 
-            _mipApi = _context.GetService<IMipApi>();
+            _mipApi = _context.GetService<IMipService>();
             _userId = _context.GetService<IHttpContextAccessor>().HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Subject.Name;
         }
 

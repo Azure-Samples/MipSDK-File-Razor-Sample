@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.File;
+using MipSdkRazorSample.Models;
+using NuGet.Configuration;
 
-namespace MipSdkRazorSample.MipApi
+namespace MipSdkRazorSample.Services
 {
-    public class MipApi : IMipApi
+    public class MipService : IMipService
     {
         private readonly AuthDelegateImpl   _authDelegate;
         private readonly IConfiguration     _configuration;
@@ -14,7 +16,7 @@ namespace MipSdkRazorSample.MipApi
         private readonly MipConfigSettings  _mipConfigSettings;
         private readonly MipContext         _mipContext;
         
-        public MipApi(IConfiguration configuration)
+        public MipService(IConfiguration configuration)
         {
             _fileEngines = new List<IFileEngine>();
 
@@ -41,6 +43,26 @@ namespace MipSdkRazorSample.MipApi
             FileProfileSettings profileSettings = new FileProfileSettings(_mipContext,CacheStorageType.InMemory,new ConsentDelegateImpl());
 
             _fileProfile = MIP.LoadFileProfileAsync(profileSettings).Result;
+        }
+        public MemoryStream ApplyMipLabel(Stream inputStream, string labelId)
+        {
+            IFileEngine engine = GetEngine(_defaultEngineId);
+
+            IFileHandler handler = engine.CreateFileHandlerAsync(inputStream, "HrData.xlsx", true).GetAwaiter().GetResult();
+
+            LabelingOptions options = new()
+            {
+                AssignmentMethod = AssignmentMethod.Standard
+
+            };
+
+            handler.SetLabel(engine.GetLabelById(labelId), options, new ProtectionSettings());
+
+            using (MemoryStream outputStream = new MemoryStream())
+            {
+                handler.CommitAsync(outputStream).GetAwaiter().GetResult();
+                return outputStream;
+            }
         }
 
         public ContentLabel GetFileLabel(string userId, Stream inputStream)
@@ -73,7 +95,7 @@ namespace MipSdkRazorSample.MipApi
         {
             IFileEngine engine;
 
-            if (_fileEngines.Count() == 0 || _fileEngines.Where(e => e.Settings.EngineId == engineId) == null)
+            if (_fileEngines.Count() == 0 || _fileEngines.Find(e => e.Settings.EngineId == engineId) == null)
             {
                 // Fix the engineId
                 FileEngineSettings settings = new FileEngineSettings(engineId, _authDelegate, "", "en-US")
@@ -105,7 +127,7 @@ namespace MipSdkRazorSample.MipApi
                     Cloud = Cloud.Commercial,
                     DelegatedUserEmail = userId
                 };
-
+               
                 // Add async? 
                 engine = _fileProfile.AddEngineAsync(settings).Result;
                 _fileEngines.Add(engine);
@@ -118,5 +140,45 @@ namespace MipSdkRazorSample.MipApi
             return engine;
         }
 
+        public IList<MipLabel> GetMipLabels(string userId)
+        {
+            IFileEngine engine;
+           
+            engine = GetDelegatedEngine(userId);
+
+            List<MipLabel> outputList = new List<MipLabel>();
+
+            foreach(var label in engine.SensitivityLabels)
+            {
+                if (label.IsActive)
+                {
+                    outputList.Add(new MipLabel()
+                    {
+                        Id = label.Id,
+                        Name = label.Name,
+                        Sensitivity = label.Sensitivity
+                    });
+                }
+
+                if(label.Children.Count() > 0)
+                {                    
+                    foreach (var child in label.Children)                 
+                    {
+                        if (child.IsActive)
+                        {
+                            outputList.Add(new MipLabel()
+                            {
+                                Id = child.Id,
+                                Name = String.Join(" - ", label.Name, child.Name),
+                                Sensitivity = child.Sensitivity
+                            });
+                        }
+                    }
+                }
+            }
+
+            return outputList;
+        }
+        
     }
 }

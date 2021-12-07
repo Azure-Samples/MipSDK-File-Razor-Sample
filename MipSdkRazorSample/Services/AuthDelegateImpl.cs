@@ -3,7 +3,7 @@ using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.Exceptions;
 using System.Security.Policy;
 
-namespace MipSdkRazorSample.MipApi
+namespace MipSdkRazorSample.Services
 {
     public class AuthDelegateImpl : IAuthDelegate
     {        

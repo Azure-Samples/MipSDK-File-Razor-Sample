@@ -2,17 +2,18 @@
 using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.Exceptions;
 using Microsoft.InformationProtection.File;
+using MipSdkRazorSample.Models;
 
-
-namespace MipSdkRazorSample.MipApi
+namespace MipSdkRazorSample.Services
 {
-    public interface IMipApi
+    public interface IMipService
     {        
         ContentLabel GetFileLabel(string userId, Stream inputStream);
-
+        public IList<MipLabel> GetMipLabels(string userId);
+        public int GetLabelSensitivityValue(string labelGuid);
         public bool IsLabeledOrProtected(Stream inputStream);
 
-        public int GetLabelSensitivityValue(string labelGuid);
-        
+        public MemoryStream ApplyMipLabel(Stream inputStream, string labelId);
+          
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MipSdkRazorSample.MipApi
+﻿namespace MipSdkRazorSample.Services
 {
     public class MipConfigSettings
     {        

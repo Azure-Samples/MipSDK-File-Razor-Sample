@@ -20,7 +20,7 @@ namespace MipSdkRazorSample.Pages.EmployeeData
         }
 
         [BindProperty]
-        public Employees Employees { get; set; }
+        public Employee Employees { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

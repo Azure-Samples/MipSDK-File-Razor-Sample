@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MipSdkRazorSample.Models
 {
-    public class Employees
+    public class Employee
     {
         public int ID { get; set; }
         [Display(Name = "First Name")]

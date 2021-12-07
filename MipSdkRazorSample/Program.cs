@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using MipSdkRazorSample.Data;
-using MipSdkRazorSample.MipApi;
+using MipSdkRazorSample.Services;
 using MipSdkRazorSample.Models;
 using System.Net.Security;
 
@@ -37,7 +37,7 @@ builder.Services.AddDbContext<MipSdkRazorSampleContext>(options =>
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
-builder.Services.AddSingleton<IMipApi, MipApi>();
+builder.Services.AddSingleton<IMipService, MipService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
