@@ -58,12 +58,10 @@ namespace MipSdkRazorSample.Services
 
             handler.SetLabel(engine.GetLabelById(labelId), options, new ProtectionSettings());
 
-            using (MemoryStream outputStream = new MemoryStream())
-            {
-                handler.CommitAsync(outputStream).GetAwaiter().GetResult();
-                return outputStream;
-            }
-        }
+            var outputStream = new MemoryStream();
+            handler.CommitAsync(outputStream).GetAwaiter().GetResult();
+            return outputStream;
+        }        
 
         public ContentLabel GetFileLabel(string userId, Stream inputStream)
         {
