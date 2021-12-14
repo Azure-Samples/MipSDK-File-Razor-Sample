@@ -12,16 +12,15 @@ namespace MipSdkRazorSample.Services
         private readonly IConfiguration     _configuration;
         private readonly string             _defaultEngineId;
         private readonly IFileProfile       _fileProfile;
-        private List<IFileEngine>           _fileEngines;        
-        private readonly MipConfigSettings  _mipConfigSettings;
+        private List<IFileEngine>           _fileEngines;                
         private readonly MipContext         _mipContext;
         
         public MipService(IConfiguration configuration)
         {
+            // This collection is used to 
             _fileEngines = new List<IFileEngine>();
 
             _configuration = configuration;
-            //Fix this.
 
             ApplicationInfo appInfo = new ApplicationInfo()
             {
@@ -106,14 +105,18 @@ namespace MipSdkRazorSample.Services
         {
             IFileEngine engine;
 
-            if (_fileEngines.Count() == 0 || _fileEngines.Find(e => e.Settings.EngineId == engineId) == null)
+            if (_fileEngines.Count == 0 || _fileEngines.Find(e => e.Settings.EngineId == engineId) == null)
             {
-                // Fix the engineId
-                FileEngineSettings settings = new FileEngineSettings(engineId, _authDelegate, "", "en-US")
-                {
-                    Cloud = Cloud.Commercial
-                };
 
+                Dictionary<FunctionalityFilterType, bool> functionalityFilter = new();                
+                functionalityFilter.Add(FunctionalityFilterType.CustomProtection, false);
+
+                FileEngineSettings settings = new(engineId, _authDelegate, "", "en-US")
+                {
+                    Cloud = Cloud.Commercial,
+                    ConfiguredFunctionality = functionalityFilter
+                };
+                                
                 // Add async? 
                 engine = _fileProfile.AddEngineAsync(settings).Result;
                 _fileEngines.Add(engine);
@@ -130,7 +133,7 @@ namespace MipSdkRazorSample.Services
         {
             IFileEngine engine;
             
-            if (_fileEngines.Count() == 0 || _fileEngines.Where(e => e.Settings.EngineId == userId) == null)
+            if (_fileEngines.Count == 0 || _fileEngines.Where(e => e.Settings.EngineId == userId).Count() == 0) 
             {
                 // Fix the engineId
                 FileEngineSettings settings = new FileEngineSettings(userId, _authDelegate, "", "en-US")
@@ -147,7 +150,7 @@ namespace MipSdkRazorSample.Services
             {
                 engine = _fileEngines.Where(e => e.Settings.EngineId == userId).First();
             }
-
+            
             return engine;
         }
 
@@ -160,7 +163,7 @@ namespace MipSdkRazorSample.Services
             List<MipLabel> outputList = new List<MipLabel>();
 
             foreach(var label in engine.SensitivityLabels)
-            {
+            {                
                 if (label.IsActive)
                 {
                     outputList.Add(new MipLabel()
