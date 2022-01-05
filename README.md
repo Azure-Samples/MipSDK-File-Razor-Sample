@@ -1,3 +1,13 @@
+---
+page_type: sample
+languages:
+- csharp
+products:
+- azure
+description: "See the ease of integrating the MIP SDK with custom applications, as well as the experience in a line-of-business/SaaS application."
+urlFragment: Mip-FileSdk-Razor-Sample
+---
+
 # MIP SDK Razor Sample
 
 This ASP.NET Core Razor application demonstrates using MIP SDK to label files on download, restrict upload based on label, and set policies around upload/download.
@@ -13,7 +23,8 @@ This project framework provides the following features:
 
 ### Prerequisites
 
-- Windows 10 or 11
+- A supported version of Windows
+- .NET Core 6.0
 - MIP SDK 1.11 or later
 - Visual Studio 2022
 
@@ -76,3 +87,14 @@ The application registration will be created.
 2. cd Mip-FileSdk-Razor-Sample
 3. .\Mip-FileSdk-Razor-Sample.sln
 4. Restore NuGet packages by right-clicking on the solution and selected **Restore NuGet Packages**
+5. Open **appsettings.json** and update the following:
+   1. **TenantId:** Your Azure AD Tenant Id. This can be found in the app registration on the Overview page.
+   2. **ClientId:** Your application registration client Id. This can be found in the app registration on the Overview page.
+   3. **ApplicationName**: The name you'd like to give the app. This is what appears in MIP audit logs.
+   4. **Version**: The app version that appears in MIP audit logs.
+6. Expand **Connected Services** and then right-click and **edit** Secrets.json.
+7. Insert the application secret from the previous section and save. 
+8. Run the application. 
+9. Go to the SecurityPolicy tab to set labels for upload and download before using other functions.
+
+
