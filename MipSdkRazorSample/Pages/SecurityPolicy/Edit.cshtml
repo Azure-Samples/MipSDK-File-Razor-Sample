@@ -1,4 +1,5 @@
 ﻿@page
+@using MipSdkRazorSample.Models
 @model MipSdkRazorSample.Pages.SecurityPolicy.EditModel
 
 @{
@@ -19,11 +20,14 @@
                 <input asp-for="DataPolicy.PolicyName" class="form-control" />
                 <span asp-validation-for="DataPolicy.PolicyName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group"> 
                 <label asp-for="DataPolicy.MinLabelIdForAction" class="control-label"></label>
-                <input asp-for="DataPolicy.MinLabelIdForAction" class="form-control" />
+                <select asp-for="DataPolicy.MinLabelIdForAction" class="form-control" asp-items="@Model.MipLabelsSelectList">
+                    <option value="">-- Select Label --</option>
+                </select>                
+<!--            <input asp-for="DataPolicy.MinLabelIdForAction" class="form-control" />-->
                 <span asp-validation-for="DataPolicy.MinLabelIdForAction" class="text-danger"></span>
-            </div>
+            </div>            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

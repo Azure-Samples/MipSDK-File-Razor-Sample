@@ -3,7 +3,7 @@ using Microsoft.InformationProtection;
 using Microsoft.InformationProtection.Exceptions;
 using System.Security.Policy;
 
-namespace MipSdkRazorSample.MipApi
+namespace MipSdkRazorSample.Services
 {
     public class AuthDelegateImpl : IAuthDelegate
     {        
@@ -17,12 +17,14 @@ namespace MipSdkRazorSample.MipApi
             _redirectUri = "https://localhost:7143" + configuration.GetSection("AzureAd").GetValue<string>("CallbackPath");
             _tenantId = configuration.GetSection("AzureAd").GetValue<string>("TenantId");            
             _clientId = configuration.GetSection("AzureAd").GetValue<string>("ClientId");
-            _secret = configuration.GetSection("AzureAd").GetValue<string>("ClientSecret");
+            _secret = configuration.GetSection("AzureAd").GetValue<string>("ClientSecret"); 
         }
 
         public string AcquireToken(Identity identity, string authority, string resource, string claims)
         {
             IConfidentialClientApplication app;
+            AuthenticationResult authResult;
+
 
             if (authority.ToLower().Contains("common"))
             {
@@ -38,11 +40,12 @@ namespace MipSdkRazorSample.MipApi
 
             string[] scopes = new string[] { resource[resource.Length - 1].Equals('/') ? $"{resource}.default" : $"{resource}/.default" };
 
-            AuthenticationResult authResult = app.AcquireTokenForClient(scopes)
+            authResult = app.AcquireTokenForClient(scopes)
                 .WithAuthority(authority)
                 .ExecuteAsync()
                 .GetAwaiter()
                 .GetResult();
+
             // Return the token. The token is sent to the resource.
             return authResult.AccessToken;
         }

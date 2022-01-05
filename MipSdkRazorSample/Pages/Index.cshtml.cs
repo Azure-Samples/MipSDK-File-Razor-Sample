@@ -20,9 +20,8 @@ namespace MipSdkRazorSample.Pages
 
         public async Task OnGet()
         {
-            var user = await _graphServiceClient.Me.Request().GetAsync();
-            ViewData["GraphApiResult"] = user.DisplayName;
-
+            //var user = await _graphServiceClient.Me.Request().GetAsync();
+            //ViewData["GraphApiResult"] = user.DisplayName;            
         }
     }
 }

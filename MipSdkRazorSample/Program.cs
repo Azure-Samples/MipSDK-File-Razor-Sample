@@ -8,9 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using MipSdkRazorSample.Data;
-using MipSdkRazorSample.MipApi;
+using MipSdkRazorSample.Services;
 using MipSdkRazorSample.Models;
 using System.Net.Security;
+using Azure.Identity;
 
 
 
@@ -37,9 +38,11 @@ builder.Services.AddDbContext<MipSdkRazorSampleContext>(options =>
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
-builder.Services.AddSingleton<IMipApi, MipApi>();
+builder.Services.AddSingleton<IMipService, MipService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddSingleton<IExcelService, ExcelService>();
 
 var app = builder.Build();
 

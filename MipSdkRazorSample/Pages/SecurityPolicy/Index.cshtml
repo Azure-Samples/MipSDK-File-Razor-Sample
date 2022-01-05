@@ -1,5 +1,6 @@
 ﻿@page
 @model MipSdkRazorSample.Pages.SecurityPolicy.IndexModel
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +9,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <!--<a asp-page="Create">Create New</a>-->
 </p>
 <table class="table">
     <thead>
@@ -17,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.DataPolicy[0].PolicyName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataPolicy[0].MinLabelIdForAction)
+                Label Name
             </th>
             <th></th>
         </tr>
@@ -29,14 +30,27 @@
                 @Html.DisplayFor(modelItem => item.PolicyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MinLabelIdForAction)
-            </td>
+                <!-- Update to display the label name instead of ID-->
+                @Html.DisplayFor(modelItem => Model.MipLabel.Where(m => m.Id == item.MinLabelIdForAction).FirstOrDefault().Name)
+            </td>                        
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <!--
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                -->
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<h2>
+    Downloaded files will have the label Id specified in the download policy applied.
+</h2> 
+
+<br /><br />
+
+<h2>
+    Uploaded files must have a label equal to, or lower than, the sensitivity of the label defined in the upload policy.
+</h2>

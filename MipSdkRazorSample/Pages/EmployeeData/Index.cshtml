@@ -10,6 +10,17 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form method="post">
+        <input type="submit" value="Export" asp-page-handler="Export"/>
+</form>
+
+
+<!-- Show label that will be applied to downloaded files. -->
+<h4>
+    <label> Label for Downloaded Files:</label>
+    <b>@Html.DisplayFor(modelItem => Model.MipLabel.Where(m => m.Id == Model.DataPolicy.MinLabelIdForAction).First().Name)</b>
+</h4>
+
 <table class="table">
     <thead>
         <tr>
@@ -64,3 +75,4 @@
 }
     </tbody>
 </table>
+

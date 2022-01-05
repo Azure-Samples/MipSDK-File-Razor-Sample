@@ -25,7 +25,7 @@ namespace MipSdkRazorSample.Pages.EmployeeData
         }
 
         [BindProperty]
-        public Employees Employees { get; set; }
+        public Employee Employees { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
