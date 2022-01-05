@@ -8,10 +8,11 @@ using MipSdkRazorSample.Models;
 namespace MipSdkRazorSample.Data
 {
     public class MipSdkRazorSampleContext : DbContext
-    {
+    {    
         public MipSdkRazorSampleContext (DbContextOptions<MipSdkRazorSampleContext> options)
             : base(options)
-        {
+        {         
+            Database.EnsureCreated();
         }
 
         public DbSet<MipSdkRazorSample.Models.Employee> Employees { get; set; }

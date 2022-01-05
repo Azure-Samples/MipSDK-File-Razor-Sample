@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -34,9 +35,12 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
 builder.Services.AddDbContext<MipSdkRazorSampleContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
-builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
+//options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
+
+//builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
+builder.Services.AddDbContext<MipSdkRazorSampleContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("MipSdkRazorSampleContext")));
 
 builder.Services.AddSingleton<IMipService, MipService>();
 

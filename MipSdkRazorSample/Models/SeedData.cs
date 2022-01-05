@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using MipSdkRazorSample.Data;
 
 namespace MipSdkRazorSample.Models
@@ -8,7 +9,7 @@ namespace MipSdkRazorSample.Models
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new MipSdkRazorSampleContext(serviceProvider.GetRequiredService<DbContextOptions<MipSdkRazorSampleContext>>()))
-            {
+            {                
                 if (context == null || context.DataPolicy == null)
                 {
                     throw new ArgumentNullException("Null MipSdkRazorSampleContext");
