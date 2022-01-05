@@ -12,8 +12,8 @@ namespace MipSdkRazorSample.Services
         public IList<MipLabel> GetMipLabels(string userId);
         public int GetLabelSensitivityValue(string labelGuid);
         public bool IsLabeledOrProtected(Stream inputStream);
-
+        public bool IsProtected(Stream inputStream);
         public MemoryStream ApplyMipLabel(Stream inputStream, string labelId);
-          
+        public Stream GetTemporaryDecryptedStream(Stream inputStream, string userId);          
     }
 }

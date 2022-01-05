@@ -17,7 +17,7 @@ namespace MipSdkRazorSample.Services
             _redirectUri = "https://localhost:7143" + configuration.GetSection("AzureAd").GetValue<string>("CallbackPath");
             _tenantId = configuration.GetSection("AzureAd").GetValue<string>("TenantId");            
             _clientId = configuration.GetSection("AzureAd").GetValue<string>("ClientId");
-            _secret = configuration.GetSection("AzureAd").GetValue<string>("ClientSecret");
+            _secret = configuration.GetSection("AzureAd").GetValue<string>("ClientSecret"); 
         }
 
         public string AcquireToken(Identity identity, string authority, string resource, string claims)
