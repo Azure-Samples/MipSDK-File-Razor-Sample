@@ -92,9 +92,16 @@ The application registration will be created.
    2. **ClientId:** Your application registration client Id. This can be found in the app registration on the Overview page.
    3. **ApplicationName**: The name you'd like to give the app. This is what appears in MIP audit logs.
    4. **Version**: The app version that appears in MIP audit logs.
-6. Expand **Connected Services** and then right-click and **edit** Secrets.json.
+6. Expand **Connected Services** and then right-click and **Manage User Secrets** on Secrets.json.
 7. Insert the application secret from the previous section and save. 
+
+```json
+{
+  "AzureAD:ClientSecret": "YOUR APP SECRET"
+}
+```
+
 8. Run the application. 
-9. Go to the SecurityPolicy tab to set labels for upload and download before using other functions.
+9.  Go to the SecurityPolicy tab to set labels for upload and download before using other functions.
 
 
