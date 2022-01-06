@@ -83,9 +83,9 @@ The application registration will be created.
 
 ### Quickstart
 
-1. git clone https://github.com/Azure-Samples/Mip-FileSdk-Razor-Sample.git
-2. cd Mip-FileSdk-Razor-Sample
-3. .\Mip-FileSdk-Razor-Sample.sln
+1. `git clone https://github.com/Azure-Samples/Mip-FileSdk-Razor-Sample.git`
+2. `cd Mip-FileSdk-Razor-Sample`
+3. `.\Mip-FileSdk-Razor-Sample.sln`
 4. Restore NuGet packages by right-clicking on the solution and selected **Restore NuGet Packages**
 5. Open **appsettings.json** and update the following:
    1. **TenantId:** Your Azure AD Tenant Id. This can be found in the app registration on the Overview page.
