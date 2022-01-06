@@ -10,7 +10,7 @@ urlFragment: Mip-FileSdk-Razor-Sample
 
 # MIP SDK Razor Sample
 
-This ASP.NET Core Razor application demonstrates using MIP SDK to label files on download, restrict upload based on label, and set policies around upload/download.
+This ASP.NET Core Razor application demonstrates using [Microsoft Information Protection SDK](https://aka.ms/mipsdkdocs) to label files on download, restrict upload based on label, and set policies around upload/download.
 
 ## Features
 
@@ -25,7 +25,7 @@ This project framework provides the following features:
 
 - A supported version of Windows
 - .NET Core 6.0
-- MIP SDK 1.11 or later
+- [Microsoft Information Protection SDK](https://aka.ms/mipsdkdocs) 1.11 or later
 - Visual Studio 2022
 
 ### App Registration
