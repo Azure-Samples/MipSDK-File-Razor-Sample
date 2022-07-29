@@ -24,7 +24,7 @@ This project framework provides the following features:
 ### Prerequisites
 
 - A supported version of Windows
-- .NET Core 6.0
+- .NET 6.0
 - [Microsoft Information Protection SDK](https://aka.ms/mipsdkdocs) 1.11 or later
 - Visual Studio 2022
 
