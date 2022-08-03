@@ -3,9 +3,10 @@ page_type: sample
 languages:
 - csharp
 products:
-- azure
+- m365
+- office-365
 description: "See the ease of integrating the MIP SDK with custom applications, as well as the experience in a line-of-business/SaaS application."
-urlFragment: Mip-FileSdk-Razor-Sample
+urlFragment: MipSDK-File-Razor-Sample
 ---
 
 # MIP SDK Razor Sample
